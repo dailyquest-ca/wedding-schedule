@@ -39,6 +39,30 @@ lib/__tests__/  Vitest test files
 design/ia/      Information architecture docs
 ```
 
+## Deploy to Vercel (auto-deploy on push)
+
+1. **Create a Git repo on GitHub**
+   - Go to [github.com/new](https://github.com/new)
+   - Name it (e.g. `wedding-schedule`), leave it empty (no README/license)
+   - Create the repository
+
+2. **Push this project**
+   ```bash
+   git remote add origin https://github.com/YOUR_USERNAME/wedding-schedule.git
+   git branch -M main
+   git push -u origin main
+   ```
+   (Replace `YOUR_USERNAME` and `wedding-schedule` with your GitHub username and repo name.)
+
+3. **Connect to Vercel**
+   - Go to [vercel.com](https://vercel.com) and sign in (e.g. with GitHub)
+   - Click **Add New…** → **Project**
+   - Import your `wedding-schedule` repo
+   - Leave **Build Command** as `npm run build` and **Output Directory** as default (Vercel detects Next.js)
+   - Click **Deploy**
+
+After that, every push to `main` will trigger a new deployment. You can add a custom domain in the Vercel project settings.
+
 ## Stack
 
 - Next.js 15 (App Router, static export)
