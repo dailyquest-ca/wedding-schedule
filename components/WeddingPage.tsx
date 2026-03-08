@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { getContent, type Locale, type SlotCategory } from "@/lib/wedding-content";
+import { useState, useEffect, useCallback } from "react";
+import { getContent, type Locale, type SlotCategory, type TimeSlot } from "@/lib/wedding-content";
+import type { EventWithCount } from "@/lib/signup/types";
+import SignupModal from "./SignupModal";
 import styles from "./WeddingPage.module.css";
 
 const CATEGORY_EMOJI: Record<SlotCategory, string> = {
@@ -15,9 +17,80 @@ const CATEGORY_EMOJI: Record<SlotCategory, string> = {
 
 export default function WeddingPage() {
   const [locale, setLocale] = useState<Locale>("en");
+  const [events, setEvents] = useState<EventWithCount[]>([]);
+  const [signups, setSignups] = useState<Record<string, string[]>>({});
+  const [modalEventId, setModalEventId] = useState<string | null>(null);
   const content = getContent(locale);
 
   const toggleLocale = () => setLocale((prev) => (prev === "en" ? "ja" : "en"));
+
+  const fetchEvents = useCallback(async () => {
+    try {
+      const res = await fetch("/api/events");
+      if (res.ok) {
+        const data: EventWithCount[] = await res.json();
+        setEvents(data);
+      }
+    } catch {
+      /* network error — counts stay at 0 */
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchEvents();
+  }, [fetchEvents]);
+
+  const getCount = (slotId?: string): number | undefined => {
+    if (!slotId) return undefined;
+    const ev = events.find((e) => e.eventId === slotId);
+    return ev?.count;
+  };
+
+  const handleSignup = async (eventId: string, guestId: string) => {
+    try {
+      const res = await fetch("/api/signups", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ eventId, guestId }),
+      });
+      if (res.ok) {
+        setSignups((prev) => ({
+          ...prev,
+          [eventId]: [...(prev[eventId] ?? []), guestId],
+        }));
+        setEvents((prev) =>
+          prev.map((e) =>
+            e.eventId === eventId ? { ...e, count: e.count + 1 } : e
+          )
+        );
+      }
+    } catch { /* ignore */ }
+  };
+
+  const handleRemove = async (eventId: string, guestId: string) => {
+    try {
+      const res = await fetch("/api/signups", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ eventId, guestId }),
+      });
+      if (res.ok) {
+        setSignups((prev) => ({
+          ...prev,
+          [eventId]: (prev[eventId] ?? []).filter((id) => id !== guestId),
+        }));
+        setEvents((prev) =>
+          prev.map((e) =>
+            e.eventId === eventId ? { ...e, count: Math.max(0, e.count - 1) } : e
+          )
+        );
+      }
+    } catch { /* ignore */ }
+  };
+
+  const modalSlot: TimeSlot | null = modalEventId
+    ? content.schedule.flatMap((d) => d.slots).find((s) => s.id === modalEventId) ?? null
+    : null;
 
   return (
     <div className={styles.page}>
@@ -47,23 +120,43 @@ export default function WeddingPage() {
                 <span className={styles.dateLabel}>{day.dateLabel}</span>
               </h2>
               <ul className={styles.slotList}>
-                {day.slots.map((slot, j) => (
-                  <li
-                    key={j}
-                    className={`${styles.slot} ${styles[`slot_${slot.category}`]}`}
-                  >
-                    <span className={styles.slotEmoji} aria-hidden="true">
-                      {CATEGORY_EMOJI[slot.category]}
-                    </span>
-                    <span className={styles.slotTime}>{slot.time}</span>
-                    <span className={styles.slotContent}>
-                      <span className={styles.slotLabel}>{slot.label}</span>
-                      {slot.description && (
-                        <span className={styles.slotDesc}>{slot.description}</span>
-                      )}
-                    </span>
-                  </li>
-                ))}
+                {day.slots.map((slot, j) => {
+                  const count = getCount(slot.id);
+                  const isSignuppable = slot.signupEnabled && slot.id;
+                  return (
+                    <li
+                      key={j}
+                      className={`${styles.slot} ${styles[`slot_${slot.category}`]}`}
+                    >
+                      <span className={styles.slotEmoji} aria-hidden="true">
+                        {CATEGORY_EMOJI[slot.category]}
+                      </span>
+                      <span className={styles.slotTime}>{slot.time}</span>
+                      <span className={styles.slotContent}>
+                        <span className={styles.slotLabel}>
+                          {slot.label}
+                          {isSignuppable && count !== undefined && (
+                            <span className={styles.countPill} aria-label={`${count} going`}>
+                              {count} {locale === "en" ? "going" : "人参加"}
+                            </span>
+                          )}
+                        </span>
+                        {slot.description && (
+                          <span className={styles.slotDesc}>{slot.description}</span>
+                        )}
+                        {isSignuppable && (
+                          <button
+                            className={styles.signupBtn}
+                            onClick={() => setModalEventId(slot.id!)}
+                            aria-label={`${locale === "en" ? "Sign up for" : "参加登録："} ${slot.label}`}
+                          >
+                            {locale === "en" ? "Sign up" : "参加する"}
+                          </button>
+                        )}
+                      </span>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
@@ -127,6 +220,18 @@ export default function WeddingPage() {
             : "A & Z が愛を込めて作りました"}
         </p>
       </footer>
+
+      {modalEventId && modalSlot && (
+        <SignupModal
+          eventId={modalEventId}
+          eventLabel={modalSlot.label}
+          locale={locale}
+          signedUpGuestIds={signups[modalEventId] ?? []}
+          onSignup={(guestId) => handleSignup(modalEventId, guestId)}
+          onRemove={(guestId) => handleRemove(modalEventId, guestId)}
+          onClose={() => setModalEventId(null)}
+        />
+      )}
     </div>
   );
 }

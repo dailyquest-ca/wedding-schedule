@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import {
   getContent,
+  getSignuppableSlotIds,
   type Locale,
   type WeddingContent,
   type ScheduleDay,
@@ -116,24 +117,17 @@ describe("getContent", () => {
     expect(serialized).not.toContain("Yoko様");
   });
 
-  describe("Apr 7 – Island or Resort Adventure", () => {
-    it("EN includes catamaran excursion to Isla Mujeres", () => {
-      const en = getContent("en");
-      const apr7 = en.schedule.find((d) => d.dateLabel.includes("Apr 7"));
-      const serialized = JSON.stringify(apr7).toLowerCase();
-      expect(serialized).toContain("catamaran");
-      expect(serialized).toContain("isla mujeres");
-    });
-
-    it("EN marks 6:30 PM buffet dinner as tentative", () => {
+  describe("Apr 7", () => {
+    it("EN has 6:30 PM Welcome Dinner at Main Buffet (may be moved/cancelled)", () => {
       const en = getContent("en");
       const apr7 = en.schedule.find((d) => d.dateLabel.includes("Apr 7"));
       const dinnerSlot = apr7!.slots.find(
         (s) => s.category === "dinner" && s.time.includes("6:30")
       );
       expect(dinnerSlot).toBeDefined();
-      const text = `${dinnerSlot!.label} ${dinnerSlot!.description ?? ""}`;
-      expect(text.toLowerCase()).toContain("tentative");
+      const text = `${dinnerSlot!.label} ${dinnerSlot!.description ?? ""}`.toLowerCase();
+      expect(text).toContain("buffet");
+      expect(text).toMatch(/moved|cancelled|tentative/);
     });
 
     it("JA marks 18:30 buffet dinner as tentative with （仮）", () => {
@@ -148,19 +142,20 @@ describe("getContent", () => {
     });
   });
 
-  describe("Apr 9 – Wedding Day detailed timeline", () => {
-    it("EN includes Sky Terrace and detailed ceremony/reception timeline", () => {
+  describe("Apr 9 – Wedding Day", () => {
+    it("EN includes all-day wedding prep and Sky Terrace timeline", () => {
       const en = getContent("en");
       const apr9 = en.schedule.find((d) => d.dateLabel.includes("Apr 9"));
-      const serialized = JSON.stringify(apr9);
-      expect(serialized).toContain("Sky Terrace");
+      const serialized = JSON.stringify(apr9).toLowerCase();
+      expect(serialized).toContain("wedding preparation");
+      expect(serialized).toContain("sky terrace");
       expect(apr9!.slots.find((s) => s.time.includes("5:00"))).toBeDefined();
       expect(apr9!.slots.find((s) => s.time.includes("5:30"))).toBeDefined();
       expect(apr9!.slots.find((s) => s.time.includes("7:00"))).toBeDefined();
       expect(apr9!.slots.find((s) => s.time.includes("9:00"))).toBeDefined();
     });
 
-    it("EN includes after-party option", () => {
+    it("EN includes optional after-party", () => {
       const en = getContent("en");
       const apr9 = en.schedule.find((d) => d.dateLabel.includes("Apr 9"));
       const serialized = JSON.stringify(apr9).toLowerCase();
@@ -188,44 +183,39 @@ describe("getContent", () => {
     });
   });
 
-  describe("Apr 5 – Arrival Day", () => {
-    it("EN includes a sunset or evening social idea", () => {
+  describe("Apr 5", () => {
+    it("EN has only early arrivals slot", () => {
       const en = getContent("en");
       const apr5 = en.schedule.find((d) => d.dateLabel.includes("Apr 5"));
-      const serialized = JSON.stringify(apr5).toLowerCase();
-      expect(serialized).toMatch(/sunset|drinks|lobby/);
+      expect(apr5!.slots.length).toBeGreaterThanOrEqual(1);
+      expect(apr5!.slots.some((s) => s.category === "travel")).toBe(true);
     });
   });
 
-  describe("Apr 6 – Arrivals & Welcome Icebreaker", () => {
-    it("EN evening includes icebreaker / group hangout language", () => {
+  describe("Apr 6 – Arrivals & Welcome", () => {
+    it("EN includes icebreaker in description and 7 PM dinner", () => {
       const en = getContent("en");
       const apr6 = en.schedule.find((d) => d.dateLabel.includes("Apr 6"));
       const serialized = JSON.stringify(apr6).toLowerCase();
       expect(serialized).toContain("icebreaker");
+      expect(apr6!.slots.some((s) => s.category === "dinner" && s.time.includes("7"))).toBe(true);
     });
   });
 
-  describe("Apr 8 – Rest Up & Family Time", () => {
-    it("EN includes a group dinner or evening option", () => {
+  describe("Apr 8 – Chichen Itza", () => {
+    it("EN includes all-day Chichen Itza tour and late dinner", () => {
       const en = getContent("en");
       const apr8 = en.schedule.find((d) => d.dateLabel.includes("Apr 8"));
       const serialized = JSON.stringify(apr8).toLowerCase();
-      expect(serialized).toMatch(/dinner|eve/);
-    });
-  });
-
-  describe("Apr 10 – Lazy Day", () => {
-    it("EN includes an optional evening idea", () => {
-      const en = getContent("en");
-      const apr10 = en.schedule.find((d) => d.dateLabel.includes("Apr 10"));
-      const serialized = JSON.stringify(apr10).toLowerCase();
-      expect(serialized).toMatch(/tacos|sunset|evening|bonfire/);
+      expect(serialized).toContain("chichen itza");
+      expect(serialized).toContain("cenote");
+      expect(serialized).toContain("valladolid");
+      expect(serialized).toContain("dinner");
     });
   });
 
   describe("Apr 13 – Goodbyes", () => {
-    it("EN includes final breakfast / hugs language", () => {
+    it("EN includes final breakfast and goodbyes", () => {
       const en = getContent("en");
       const apr13 = en.schedule.find((d) => d.dateLabel.includes("Apr 13"));
       const serialized = JSON.stringify(apr13).toLowerCase();
@@ -233,13 +223,30 @@ describe("getContent", () => {
     });
   });
 
-  describe("copy polish – no generic filler in labels", () => {
-    it("EN labels avoid overused generic phrasing", () => {
+  describe("signuppable slots", () => {
+    it("returns 8 signuppable event IDs", () => {
+      const ids = getSignuppableSlotIds();
+      expect(ids).toHaveLength(8);
+    });
+
+    it("includes dinner and excursion events", () => {
+      const ids = getSignuppableSlotIds();
+      expect(ids).toContain("apr6-dinner");
+      expect(ids).toContain("apr7-dinner");
+      expect(ids).toContain("apr8-chichen-itza");
+      expect(ids).toContain("apr8-dinner");
+      expect(ids).toContain("apr11-golf");
+      expect(ids).toContain("apr11-coco-bongo");
+      expect(ids).toContain("apr12-outing");
+      expect(ids).toContain("apr12-dinner");
+    });
+
+    it("EN and JA slots have matching IDs", () => {
       const en = getContent("en");
-      const labels = en.schedule
-        .flatMap((d) => d.slots.map((s) => s.label.toLowerCase()));
-      expect(labels).not.toContain("early arrivals");
-      expect(labels).not.toContain("recovery & lazy day");
+      const ja = getContent("ja");
+      const enIds = en.schedule.flatMap((d) => d.slots).filter((s) => s.id).map((s) => s.id);
+      const jaIds = ja.schedule.flatMap((d) => d.slots).filter((s) => s.id).map((s) => s.id);
+      expect(enIds).toEqual(jaIds);
     });
   });
 });
