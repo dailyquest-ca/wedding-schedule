@@ -37,10 +37,10 @@ describe("WeddingPage", () => {
     );
   });
 
-  it("renders all 7 day sections", () => {
+  it("renders all 9 day sections (Apr 5-13)", () => {
     render(<WeddingPage />);
     const dayHeadings = screen.getAllByRole("heading", { level: 2 });
-    expect(dayHeadings.length).toBeGreaterThanOrEqual(7);
+    expect(dayHeadings.length).toBeGreaterThanOrEqual(9);
   });
 
   it("renders the WhatsApp link in the footer", () => {
@@ -60,6 +60,22 @@ describe("WeddingPage", () => {
     render(<WeddingPage />);
     const heading = screen.getByRole("heading", { name: /notes/i });
     expect(heading).toBeInTheDocument();
+  });
+
+  it("renders the real April wedding date", () => {
+    render(<WeddingPage />);
+    expect(screen.getByText(/Apr 9/i)).toBeInTheDocument();
+  });
+
+  it("renders Apr 13 as the last visible day", () => {
+    render(<WeddingPage />);
+    expect(screen.getByText(/Apr 13/i)).toBeInTheDocument();
+  });
+
+  it("renders arrival summaries with first names only", () => {
+    render(<WeddingPage />);
+    expect(screen.getAllByText(/Anna, Zak, Ishan/i).length).toBeGreaterThan(0);
+    expect(screen.queryByText(/Kawamura|Verma/i)).not.toBeInTheDocument();
   });
 
   it("uses semantic landmarks", () => {
