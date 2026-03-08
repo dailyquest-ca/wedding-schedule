@@ -1,0 +1,379 @@
+/* ── Skip Link ─────────────────────────────────────── */
+.skipLink {
+  position: absolute;
+  left: -9999px;
+  top: var(--space-sm);
+  z-index: 100;
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--shadow-elevated);
+}
+
+.skipLink:focus {
+  left: var(--space-md);
+}
+
+/* ── Screen-reader only ────────────────────────────── */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Page ──────────────────────────────────────────── */
+.page {
+  min-height: 100vh;
+  background: var(--color-bg);
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* ── Header ────────────────────────────────────────── */
+.header {
+  background: linear-gradient(
+    160deg,
+    var(--color-accent) 0%,
+    var(--color-wedding) 100%
+  );
+  color: #fff;
+  padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+  text-align: center;
+  position: relative;
+}
+
+.headerInner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-sm);
+}
+
+.subtitle {
+  font-size: 1.15rem;
+  opacity: 0.9;
+  margin: 0;
+  font-weight: 400;
+}
+
+.langToggle {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  color: #fff;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+  backdrop-filter: blur(4px);
+}
+
+.langToggle:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.langToggle:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.langToggle:active {
+  transform: scale(0.97);
+}
+
+/* ── Main ──────────────────────────────────────────── */
+.main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md) var(--space-2xl);
+}
+
+/* ── Schedule ──────────────────────────────────────── */
+.schedule {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.dayCard {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.dayHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: var(--space-md) var(--space-lg);
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.dayLabel {
+  color: var(--color-text);
+}
+
+.dateLabel {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+/* ── Slots ─────────────────────────────────────────── */
+.slotList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.slot {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  transition: background 0.15s;
+}
+
+.slot + .slot {
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.slotEmoji {
+  flex-shrink: 0;
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
+.slotTime {
+  flex-shrink: 0;
+  width: 80px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  padding-top: 2px;
+}
+
+.slotContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.slotLabel {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.slotDesc {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* Category color accents */
+.slot_wedding {
+  background: var(--color-wedding-light);
+}
+
+.slot_wedding .slotLabel {
+  color: var(--color-wedding);
+}
+
+.slot_excursion {
+  background: var(--color-excursion-light);
+}
+
+.slot_excursion .slotLabel {
+  color: var(--color-excursion);
+}
+
+.slot_dinner .slotLabel {
+  color: var(--color-dinner);
+}
+
+.slot_busy {
+  background: var(--color-busy-light);
+}
+
+.slot_busy .slotLabel {
+  color: var(--color-busy);
+}
+
+.slot_free .slotLabel {
+  color: var(--color-free);
+}
+
+.slot_travel {
+  background: var(--color-travel-light);
+}
+
+.slot_travel .slotLabel {
+  color: var(--color-travel);
+}
+
+/* ── Info Sections (Notes, Costs) ──────────────────── */
+.infoSection {
+  margin-top: var(--space-xl);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-lg);
+}
+
+.sectionHeading {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 var(--space-md);
+  color: var(--color-accent);
+}
+
+.notesList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.noteItem {
+  position: relative;
+  padding-left: var(--space-lg);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.noteItem::before {
+  content: "•";
+  position: absolute;
+  left: var(--space-sm);
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.costsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.costItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  padding: var(--space-sm) 0;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+}
+
+.costItem:last-child {
+  border-bottom: none;
+}
+
+.costAmount {
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+/* ── Footer ────────────────────────────────────────── */
+.footer {
+  text-align: center;
+  padding: var(--space-xl) var(--space-md) var(--space-2xl);
+}
+
+.whatsappLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: #25d366;
+  color: #fff;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--shadow-elevated);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.whatsappLink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.3);
+}
+
+.whatsappLink:focus-visible {
+  outline: 2px solid #25d366;
+  outline-offset: 3px;
+}
+
+.whatsappLink:active {
+  transform: translateY(0);
+}
+
+.whatsappIcon {
+  flex-shrink: 0;
+}
+
+.footerNote {
+  margin-top: var(--space-lg);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .header {
+    padding: var(--space-xl) var(--space-md) var(--space-lg);
+  }
+
+  .main {
+    padding: var(--space-lg) var(--space-sm) var(--space-xl);
+  }
+
+  .dayHeading {
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-md);
+  }
+
+  .slot {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .slotTime {
+    width: 64px;
+    font-size: 0.8rem;
+  }
+}

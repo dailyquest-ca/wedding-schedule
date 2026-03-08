@@ -1,0 +1,60 @@
+:root {
+  --color-bg: #fdf8f4;
+  --color-surface: #ffffff;
+  --color-text: #2d2a26;
+  --color-text-muted: #6b6560;
+  --color-accent: #c0785a;
+  --color-accent-light: #f4e6dd;
+  --color-wedding: #9f6b8a;
+  --color-wedding-light: #f0e0ea;
+  --color-excursion: #4a8c7f;
+  --color-excursion-light: #dff0ec;
+  --color-dinner: #b0833b;
+  --color-dinner-light: #faf0dd;
+  --color-busy: #7a7a9e;
+  --color-busy-light: #ededf5;
+  --color-free: #6a9e4a;
+  --color-free-light: #e8f4df;
+  --color-travel: #5a7aab;
+  --color-travel-light: #e0ecf6;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --font-sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-elevated: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
