@@ -3,12 +3,18 @@ import { render, screen, fireEvent, act } from "@testing-library/react";
 import WeddingPage from "@/components/WeddingPage";
 
 beforeEach(() => {
-  vi.stubGlobal("fetch", vi.fn(() =>
-    Promise.resolve({
+  vi.stubGlobal("fetch", vi.fn((url: string) => {
+    if (url === "/api/public/content") {
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ events: [], notes: { en: [], ja: [] } }),
+      });
+    }
+    return Promise.resolve({
       ok: true,
       json: () => Promise.resolve([]),
-    })
-  ));
+    });
+  }));
 });
 
 afterEach(() => {

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { validateSignup } from "@/lib/signup/validation";
+import { validateSignupInput } from "@/lib/signup/validation";
+import { isSignupEnabledEvent } from "@/lib/signup/content-queries";
 import { addSignup, removeSignup } from "@/lib/signup/queries";
 
 export const dynamic = "force-dynamic";
@@ -9,9 +10,14 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { eventId, guestId } = body;
 
-    const validation = validateSignup(eventId, guestId);
-    if (!validation.valid) {
-      return NextResponse.json({ error: validation.error }, { status: 400 });
+    const input = validateSignupInput(eventId, guestId);
+    if (!input.valid) {
+      return NextResponse.json({ error: input.error }, { status: 400 });
+    }
+
+    const eventExists = await isSignupEnabledEvent(eventId);
+    if (!eventExists) {
+      return NextResponse.json({ error: `Unknown or disabled event: ${eventId}` }, { status: 400 });
     }
 
     await addSignup(eventId, guestId);
@@ -30,9 +36,9 @@ export async function DELETE(request: NextRequest) {
     const body = await request.json();
     const { eventId, guestId } = body;
 
-    const validation = validateSignup(eventId, guestId);
-    if (!validation.valid) {
-      return NextResponse.json({ error: validation.error }, { status: 400 });
+    const input = validateSignupInput(eventId, guestId);
+    if (!input.valid) {
+      return NextResponse.json({ error: input.error }, { status: 400 });
     }
 
     await removeSignup(eventId, guestId);
