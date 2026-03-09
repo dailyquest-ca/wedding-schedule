@@ -84,6 +84,57 @@ describe("mergeSchedule", () => {
     expect(poolSlot!.category).toBe("free");
   });
 
+  it("sorts merged slots chronologically within a day", () => {
+    const base = getContent("en").schedule;
+    const customMorning = makeDbEvent({
+      id: "custom-breakfast",
+      dayDate: "2026-04-10",
+      timeLabel: "8:00 AM",
+      category: "dinner",
+      labelEn: "Breakfast meetup",
+      source: "custom",
+    });
+    const customEvening = makeDbEvent({
+      id: "custom-sunset",
+      dayDate: "2026-04-10",
+      timeLabel: "6:00 PM",
+      category: "free",
+      labelEn: "Sunset hangout",
+      source: "custom",
+    });
+
+    const merged = mergeSchedule(base, [customEvening, customMorning], "en");
+    const apr10 = merged[5];
+    const ids = apr10.slots.map((slot) => slot.id ?? slot.label);
+    expect(ids).toEqual([
+      "Rest and relax",
+      "custom-breakfast",
+      "Victor departs",
+      "custom-sunset",
+    ]);
+  });
+
+  it("falls back to English fields when Japanese text is blank", () => {
+    const base = getContent("ja").schedule;
+    const custom = makeDbEvent({
+      id: "custom-dinner",
+      dayDate: "2026-04-10",
+      timeLabel: "6:00 PM",
+      category: "dinner",
+      labelEn: "Dinner at L'essence",
+      descriptionEn: "Group dinner.",
+      labelJa: "",
+      descriptionJa: null,
+      source: "custom",
+    });
+
+    const merged = mergeSchedule(base, [custom], "ja");
+    const apr10 = merged[5];
+    const dinnerSlot = apr10.slots.find((slot) => slot.id === "custom-dinner");
+    expect(dinnerSlot?.label).toBe("Dinner at L'essence");
+    expect(dinnerSlot?.description).toBe("Group dinner.");
+  });
+
   it("skips inactive events", () => {
     const base = getContent("en").schedule;
     const inactive = makeDbEvent({
