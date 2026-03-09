@@ -270,7 +270,7 @@ const EN: WeddingContent = {
   },
   photos: {
     url: "https://photos.app.goo.gl/AnAaJKGTeqWx7jtY9",
-    label: "Shared Photos",
+    label: "Shared Photo Album",
   },
 };
 
@@ -506,7 +506,7 @@ const JA: WeddingContent = {
   },
   photos: {
     url: "https://photos.app.goo.gl/AnAaJKGTeqWx7jtY9",
-    label: "共有写真",
+    label: "共有フォトアルバム",
   },
 };
 
