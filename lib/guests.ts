@@ -14,7 +14,7 @@ export const GUESTS: Guest[] = [
   { id: "romeo", firstName: "Romeo", isFamilyException: false },
   { id: "talia", firstName: "Talia", isFamilyException: false },
   { id: "maki", firstName: "Maki", isFamilyException: false },
-  { id: "naito", firstName: "Naito", isFamilyException: false },
+  { id: "naito", firstName: "Kazuki", isFamilyException: false },
   { id: "krystal", firstName: "Krystal", isFamilyException: false },
   { id: "keith", firstName: "Keith", isFamilyException: false },
   { id: "kento", firstName: "Kento", isFamilyException: false },

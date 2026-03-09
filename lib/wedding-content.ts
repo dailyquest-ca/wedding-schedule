@@ -64,7 +64,7 @@ const EN: WeddingContent = {
           time: "2:53–4:04 PM",
           label: "Main arrival wave",
           description:
-            "Anna, Zak, Ishan, Roxy, Romeo, Talia, Maki, Naito, Krystal, and Keith arrive. Settling in, exploring the resort, icebreakers and group hangout so no one feels like a stranger.",
+            "Anna, Zak, Ishan, Roxy, Romeo, Talia, Maki, Kazuki, Krystal, and Keith arrive. Settling in, exploring the resort, icebreakers and group hangout so no one feels like a stranger.",
           category: "travel",
         },
         {
@@ -252,7 +252,7 @@ const EN: WeddingContent = {
           time: "4:05–5:00 PM",
           label: "Final departures",
           description:
-            "Anna, Zak, Ishan, Roxy, Romeo, Talia, Maki, Naito, Krystal, and Keith head home.",
+            "Anna, Zak, Ishan, Roxy, Romeo, Talia, Maki, Kazuki, Krystal, and Keith head home.",
           category: "travel",
         },
       ],
@@ -300,7 +300,7 @@ const JA: WeddingContent = {
           time: "14:53–16:04",
           label: "メインの到着",
           description:
-            "Anna、Zak、Ishan様、Roxy様、Romeo様、Talia様、Maki様、Naito様、Krystal様、Keith様 が午後に到着。リゾートで落ち着いて、アイスブレイカーで打ち解けましょう。",
+            "Anna、Zak、Ishan様、Roxy様、Romeo様、Talia様、Maki様、Kazuki様、Krystal様、Keith様 が午後に到着。リゾートで落ち着いて、アイスブレイカーで打ち解けましょう。",
           category: "travel",
         },
         {
@@ -488,7 +488,7 @@ const JA: WeddingContent = {
           time: "16:05–17:00",
           label: "最終出発",
           description:
-            "Anna、Zak、Ishan様、Roxy様、Romeo様、Talia様、Maki様、Naito様、Krystal様、Keith様 が帰国します。",
+            "Anna、Zak、Ishan様、Roxy様、Romeo様、Talia様、Maki様、Kazuki様、Krystal様、Keith様 が帰国します。",
           category: "travel",
         },
       ],
