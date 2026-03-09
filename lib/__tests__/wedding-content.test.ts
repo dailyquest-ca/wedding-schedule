@@ -60,8 +60,9 @@ describe("getContent", () => {
         expect(content.whatsapp.label).toBeTruthy();
       });
 
-      it("returns costs array", () => {
-        expect(Array.isArray(content.costs)).toBe(true);
+      it("returns a photos link and label", () => {
+        expect(content.photos.url).toMatch(/^https:\/\//);
+        expect(content.photos.label).toBeTruthy();
       });
     });
   });

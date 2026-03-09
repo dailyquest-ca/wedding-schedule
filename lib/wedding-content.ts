@@ -23,17 +23,11 @@ export interface ScheduleDay {
   slots: TimeSlot[];
 }
 
-export interface CostItem {
-  label: string;
-  amount: string;
-}
-
 export interface WeddingContent {
   title: string;
   subtitle: string;
   schedule: ScheduleDay[];
   notes: string[];
-  costs: CostItem[];
   whatsapp: {
     url: string;
     label: string;
@@ -270,11 +264,6 @@ const EN: WeddingContent = {
     "Dress code: semi-formal / smart casual.",
     "Dietary needs? Let us know via WhatsApp.",
   ],
-  costs: [
-    { label: "Wedding events", amount: "Included" },
-    { label: "Shared dinners", amount: "Mostly included" },
-    { label: "Personal extras", amount: "On your own" },
-  ],
   whatsapp: {
     url: "https://chat.whatsapp.com/LLtkoDPyh0EHu7sbK2NxN8",
     label: "WhatsApp Group",
@@ -510,11 +499,6 @@ const JA: WeddingContent = {
     "到着・出発時刻は目安です。",
     "ドレスコード：セミフォーマル／スマートカジュアル。",
     "食事の制限がある方はWhatsAppでお知らせください。",
-  ],
-  costs: [
-    { label: "ウェディング関連", amount: "含まれています" },
-    { label: "共有ディナー", amount: "ほぼ含まれています" },
-    { label: "個人の追加費用", amount: "各自負担" },
   ],
   whatsapp: {
     url: "https://chat.whatsapp.com/LLtkoDPyh0EHu7sbK2NxN8",

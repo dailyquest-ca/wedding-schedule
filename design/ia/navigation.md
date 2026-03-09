@@ -6,17 +6,16 @@ Single-page site. No multi-level navigation. All content is on one scrollable pa
 
 | Section | Element | Purpose |
 |---------|---------|---------|
-| Header | `<header>` | Title, subtitle, language toggle (EN/JA) |
-| Schedule | `<main> > <section>` | 7 day cards, each with time-slot list |
+| Header | `<header>` | Couple photo, title, subtitle, language toggle (EN/JA), quick links (WhatsApp, Photos) |
+| Schedule | `<main> > <section>` | 9 day cards (Apr 5–13), each with time-slot list |
 | Notes & Reminders | `<main> > <section>` | Bullet list of guest-facing info |
-| Costs | `<main> > <section>` | Label/amount pairs |
-| Footer | `<footer>` | WhatsApp CTA link, attribution |
+| Footer | `<footer>` | Attribution |
 
 ## Labels
 
 - Day headings: day name + date (e.g. "Monday", "Mon, Sep 14")
 - Time slots: time + label + optional description
-- Section headings: "Notes & Reminders", "Costs"
+- Section headings: "Notes & Reminders"
 - Toggle: shows the *other* language name (日本語 when in EN, English when in JA)
 
 ## Slot Categories

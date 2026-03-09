@@ -154,4 +154,18 @@ describe("WeddingPage", () => {
       expect(link.getAttribute("rel")).toContain("noopener");
     }
   });
+
+  it("does not render a Costs section", async () => {
+    await renderPage();
+    expect(screen.queryByRole("heading", { name: /costs/i })).not.toBeInTheDocument();
+  });
+
+  it("renders the couple photo in the header", async () => {
+    const { container } = render(<WeddingPage />);
+    await act(async () => {});
+    const header = container.querySelector("header");
+    const img = header?.querySelector("img");
+    expect(img).toBeInTheDocument();
+    expect(img?.getAttribute("alt")).toBe("Anna & Zak");
+  });
 });

@@ -123,13 +123,25 @@ export default function WeddingPage() {
           >
             {baseContent.toggleLabel}
           </button>
+          <div className={styles.heroPhoto}>
+            <img
+              src="/anna-zak.png"
+              alt="Anna & Zak"
+              className={styles.heroPhotoImg}
+              width={120}
+              height={120}
+            />
+          </div>
           <h1 className={styles.title}>{baseContent.title}</h1>
           <p className={styles.subtitle}>{baseContent.subtitle}</p>
         </div>
-        <nav className={styles.quickLinks} aria-label="Quick links">
+        <nav
+          className={styles.quickLinks}
+          aria-label={locale === "en" ? "Quick links" : "リンク"}
+        >
           <a
             href={baseContent.whatsapp.url}
-            className={styles.quickLink}
+            className={`${styles.quickLink} ${styles.quickLinkWhatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -140,12 +152,18 @@ export default function WeddingPage() {
           </a>
           <a
             href={baseContent.photos.url}
-            className={styles.quickLink}
+            className={`${styles.quickLink} ${styles.quickLinkPhotos}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="16" height="16">
-              <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
+            <svg viewBox="0 0 48 48" aria-hidden="true" width="16" height="16">
+              <path fill="#EA4335" d="M24 2C24 2 24 12.5 24 24L12 6.8C15.5 3.7 19.5 2 24 2z" />
+              <path fill="#4285F4" d="M24 2C28.5 2 32.5 3.7 36 6.8L24 24V2z" />
+              <path fill="#FBBC04" d="M24 24L36 6.8C39.7 10.2 42 15 42 20.5 42 21.7 41.9 22.9 41.7 24H24z" />
+              <path fill="#34A853" d="M24 24H41.7C40.7 31 36 37 29.5 40.5L24 24z" />
+              <path fill="#EA4335" d="M24 24L29.5 40.5C27.7 41.5 25.9 42 24 42s-3.7-.5-5.5-1.5L24 24z" />
+              <path fill="#4285F4" d="M24 24L18.5 40.5C12 37 7.3 31 6.3 24H24z" />
+              <path fill="#FBBC04" d="M24 24H6.3C6.1 22.9 6 21.7 6 20.5 6 15 8.3 10.2 12 6.8L24 24z" />
             </svg>
             {baseContent.photos.label}
           </a>
@@ -216,21 +234,6 @@ export default function WeddingPage() {
           </ul>
         </section>
 
-        {baseContent.costs.length > 0 && (
-          <section className={styles.infoSection} aria-label="Costs">
-            <h2 className={styles.sectionHeading}>
-              {locale === "en" ? "Costs" : "費用"}
-            </h2>
-            <ul className={styles.costsList}>
-              {baseContent.costs.map((cost, i) => (
-                <li key={i} className={styles.costItem}>
-                  <span>{cost.label}</span>
-                  <span className={styles.costAmount}>{cost.amount}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
       </main>
 
       <footer className={styles.footer}>

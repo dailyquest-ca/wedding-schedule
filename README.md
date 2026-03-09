@@ -39,11 +39,11 @@ psql $DATABASE_URL -f migrations/001_init.sql
 
 ## Editing Content
 
-All schedule data, translations, notes, costs, and the WhatsApp link live in:
+All schedule data, translations, notes, and links live in:
 
 **`lib/wedding-content.ts`**
 
-Edit the `EN` and `JA` objects to change dates, events, notes, or costs. Slots with `signupEnabled: true` will show sign-up buttons to guests.
+Edit the `EN` and `JA` objects to change dates, events, or notes. Slots with `signupEnabled: true` will show sign-up buttons to guests.
 
 ## Project Structure
 
