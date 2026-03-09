@@ -125,6 +125,14 @@ const EN: WeddingContent = {
       dayLabel: "Thursday — Wedding Day",
       slots: [
         {
+          id: "apr11-golf",
+          time: "Morning",
+          label: "Scramble golf tournament",
+          description: "Friendly scramble format. All skill levels welcome.",
+          category: "excursion",
+          signupEnabled: true,
+        },
+        {
           time: "All day",
           label: "Wedding preparation",
           description: "Getting ready, photos with friends and family, and final prep.",
@@ -183,16 +191,8 @@ const EN: WeddingContent = {
     },
     {
       dateLabel: "Sat, Apr 11",
-      dayLabel: "Saturday — Golf & Cancun",
+      dayLabel: "Saturday — Cancun",
       slots: [
-        {
-          id: "apr11-golf",
-          time: "Morning",
-          label: "Scramble golf tournament",
-          description: "All skill levels welcome.",
-          category: "excursion",
-          signupEnabled: true,
-        },
         {
           time: "2:58 PM onward",
           label: "Departures",
@@ -231,8 +231,8 @@ const EN: WeddingContent = {
         {
           id: "apr12-dinner",
           time: "Evening",
-          label: "Final dinner together",
-          description: "One last meal as a group.",
+          label: "Final dinner at La Rinascita",
+          description: "One last group dinner together.",
           category: "dinner",
           signupEnabled: true,
         },
@@ -361,6 +361,14 @@ const JA: WeddingContent = {
       dayLabel: "木曜日 — 結婚式当日",
       slots: [
         {
+          id: "apr11-golf",
+          time: "朝",
+          label: "スクランブルゴルフトーナメント",
+          description: "スクランブル形式。経験問わず参加歓迎。",
+          category: "excursion",
+          signupEnabled: true,
+        },
+        {
           time: "終日",
           label: "ウェディング準備",
           description: "支度、友人・家族との写真、最終準備。",
@@ -419,16 +427,8 @@ const JA: WeddingContent = {
     },
     {
       dateLabel: "4月11日（土）",
-      dayLabel: "土曜日 — ゴルフ＆カンクン",
+      dayLabel: "土曜日 — カンクン",
       slots: [
-        {
-          id: "apr11-golf",
-          time: "朝",
-          label: "スクランブルゴルフトーナメント",
-          description: "レベル問わず参加歓迎。",
-          category: "excursion",
-          signupEnabled: true,
-        },
         {
           time: "14:58以降",
           label: "出発",
@@ -467,8 +467,8 @@ const JA: WeddingContent = {
         {
           id: "apr12-dinner",
           time: "夜",
-          label: "最後のディナー",
-          description: "みんなで最後の食事。",
+          label: "La Rinascitaで最後のディナー",
+          description: "みんなで最後のグループディナー。",
           category: "dinner",
           signupEnabled: true,
         },

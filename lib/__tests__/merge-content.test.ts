@@ -20,10 +20,17 @@ function makeDbEvent(overrides: Partial<DbEventFull> & { id: string }): DbEventF
 }
 
 describe("mergeSchedule", () => {
-  it("returns base schedule unchanged when no DB events", () => {
+  it("returns base schedule with slots reordered by time when no DB events", () => {
     const base = getContent("en").schedule;
     const merged = mergeSchedule(base, [], "en");
-    expect(merged).toEqual(base);
+    expect(merged.length).toBe(base.length);
+    merged.forEach((day, i) => {
+      expect(day.dateLabel).toBe(base[i].dateLabel);
+      expect(day.slots.length).toBe(base[i].slots.length);
+      const baseLabels = base[i].slots.map((s) => s.label).sort();
+      const mergedLabels = day.slots.map((s) => s.label).sort();
+      expect(mergedLabels).toEqual(baseLabels);
+    });
   });
 
   it("does not mutate the original base schedule", () => {

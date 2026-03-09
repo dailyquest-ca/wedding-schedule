@@ -38,7 +38,7 @@ export default function WeddingPage() {
         setEvents(await evRes.json());
       }
       if (contentRes.ok) {
-        setDbContent(await contentRes.json());
+        setDbContent((await contentRes.json()) as PublicContentResponse);
       }
     } catch {
       /* network error — fallback to base content */

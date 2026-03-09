@@ -34,7 +34,7 @@ INSERT INTO events (id, day_date, time_label, category, signup_enabled, source) 
   ('apr7-dinner',       '2026-04-07', '6:30 PM',          'dinner',    true, 'base'),
   ('apr8-chichen-itza', '2026-04-08', '6:00 AM – 6:00 PM','excursion', true, 'base'),
   ('apr8-dinner',       '2026-04-08', '8:00 PM',          'dinner',    true, 'base'),
-  ('apr11-golf',        '2026-04-11', 'Morning',          'excursion', true, 'base'),
+  ('apr11-golf',        '2026-04-09', 'Morning',          'excursion', true, 'base'),
   ('apr11-coco-bongo',  '2026-04-11', 'Evening',          'excursion', true, 'base'),
   ('apr12-outing',      '2026-04-12', 'Daytime',          'excursion', true, 'base'),
   ('apr12-dinner',      '2026-04-12', 'Evening',          'dinner',    true, 'base')
@@ -49,7 +49,7 @@ INSERT INTO event_i18n (event_id, locale, label, description) VALUES
   ('apr11-golf',        'en', 'Scramble golf tournament',                 'All skill levels welcome.'),
   ('apr11-coco-bongo',  'en', 'Cancun & Coco Bongo',                     'Evening trip to Cancun for those still around.'),
   ('apr12-outing',      'en', 'Optional group outing',                   'Jet skis, boat rental, scuba diving, or adventure park — details in the group.'),
-  ('apr12-dinner',      'en', 'Final dinner together',                   'One last meal as a group.')
+  ('apr12-dinner',      'en', 'Final dinner at La Rinascita',             'One last group dinner together.')
 ON CONFLICT (event_id, locale) DO NOTHING;
 
 -- Seed JA labels
@@ -61,7 +61,7 @@ INSERT INTO event_i18n (event_id, locale, label, description) VALUES
   ('apr11-golf',        'ja', 'スクランブルゴルフトーナメント',                     'レベル問わず参加歓迎。'),
   ('apr11-coco-bongo',  'ja', 'カンクン＆Coco Bongo',                              'まだいるメンバーでカンクンへ。'),
   ('apr12-outing',      'ja', 'オプションのグループアクティビティ',                 'ジェットスキー、ボートレンタル、スキューバ、アドベンチャーパーク — グループでご確認ください。'),
-  ('apr12-dinner',      'ja', '最後のディナー',                                     'みんなで最後の食事。')
+  ('apr12-dinner',      'ja', 'La Rinascitaで最後のディナー',                        'みんなで最後のグループディナー。')
 ON CONFLICT (event_id, locale) DO NOTHING;
 
 -- Seed EN notes
