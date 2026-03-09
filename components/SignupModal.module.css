@@ -79,6 +79,37 @@
   outline-offset: 2px;
 }
 
+.rosterSection {
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(37, 211, 102, 0.04);
+}
+
+.rosterHeading {
+  margin: 0 0 var(--space-xs);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #25d366;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.rosterChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.rosterChip {
+  display: inline-block;
+  padding: 2px var(--space-sm);
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: rgba(37, 211, 102, 0.1);
+  color: var(--color-text);
+  border-radius: 999px;
+}
+
 .searchWrap {
   padding: var(--space-md) var(--space-lg) 0;
 }

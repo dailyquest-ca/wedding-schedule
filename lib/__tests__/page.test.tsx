@@ -68,16 +68,17 @@ describe("WeddingPage", () => {
     expect(dayHeadings.length).toBeGreaterThanOrEqual(9);
   });
 
-  it("renders the WhatsApp link in the footer", async () => {
+  it("renders WhatsApp link in the top link bar", async () => {
     await renderPage();
-    const links = screen.getAllByRole("link");
+    const nav = screen.getByRole("navigation", { name: /quick links/i });
+    const links = Array.from(nav.querySelectorAll("a"));
     const whatsappLink = links.find((l) =>
       l.textContent?.toLowerCase().includes("whatsapp")
     );
     expect(whatsappLink).toBeDefined();
     expect(whatsappLink).toHaveAttribute(
       "href",
-      expect.stringMatching(/^https:\/\//)
+      expect.stringContaining("chat.whatsapp.com")
     );
   });
 
@@ -131,5 +132,26 @@ describe("WeddingPage", () => {
     expect(screen.getByRole("dialog")).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /close/i }));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("renders a top link bar with WhatsApp and Photos links", async () => {
+    await renderPage();
+    const nav = screen.getByRole("navigation", { name: /quick links/i });
+    expect(nav).toBeInTheDocument();
+
+    const links = nav.querySelectorAll("a");
+    const hrefs = Array.from(links).map((a) => a.getAttribute("href"));
+    expect(hrefs.some((h) => h?.includes("chat.whatsapp.com"))).toBe(true);
+    expect(hrefs.some((h) => h?.includes("photos.app.goo.gl"))).toBe(true);
+  });
+
+  it("top link bar links open in new tabs", async () => {
+    await renderPage();
+    const nav = screen.getByRole("navigation", { name: /quick links/i });
+    const links = Array.from(nav.querySelectorAll("a"));
+    for (const link of links) {
+      expect(link.getAttribute("target")).toBe("_blank");
+      expect(link.getAttribute("rel")).toContain("noopener");
+    }
   });
 });

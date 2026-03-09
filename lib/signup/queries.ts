@@ -1,7 +1,32 @@
 import { getDb } from "@/lib/db";
-import { getGuestById } from "@/lib/guests";
+import { getGuestById, getDisplayName } from "@/lib/guests";
 import { getDbEvents } from "./content-queries";
 import type { EventRoster } from "./types";
+
+export interface RosterGuest {
+  guestId: string;
+  firstName: string;
+  displayNameEn: string;
+  displayNameJa: string;
+}
+
+export async function getRosterForEvent(eventId: string): Promise<RosterGuest[]> {
+  const sql = getDb();
+  const rows = await sql`
+    SELECT guest_id FROM event_signups
+    WHERE event_id = ${eventId}
+    ORDER BY created_at
+  `;
+  return rows.map((r) => {
+    const guest = getGuestById(r.guest_id as string);
+    return {
+      guestId: r.guest_id as string,
+      firstName: guest?.firstName ?? (r.guest_id as string),
+      displayNameEn: guest ? getDisplayName(guest, "en") : (r.guest_id as string),
+      displayNameJa: guest ? getDisplayName(guest, "ja") : (r.guest_id as string),
+    };
+  });
+}
 
 export async function addSignup(eventId: string, guestId: string): Promise<void> {
   const sql = getDb();

@@ -1,9 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { GUESTS } from "@/lib/guests";
+import { useState, useEffect } from "react";
+import { GUESTS, getDisplayName } from "@/lib/guests";
 import type { Locale } from "@/lib/wedding-content";
 import styles from "./SignupModal.module.css";
+
+interface RosterGuest {
+  guestId: string;
+  firstName: string;
+  displayNameEn: string;
+  displayNameJa: string;
+}
 
 interface SignupModalProps {
   eventId: string;
@@ -26,19 +33,60 @@ export default function SignupModal({
 }: SignupModalProps) {
   const [search, setSearch] = useState("");
   const [pending, setPending] = useState<string | null>(null);
+  const [roster, setRoster] = useState<RosterGuest[]>([]);
+
+  useEffect(() => {
+    fetch(`/api/rosters?eventId=${encodeURIComponent(eventId)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data?.guests) setRoster(data.guests);
+      })
+      .catch(() => {});
+  }, [eventId]);
+
+  const mergedRosterIds = new Set([
+    ...roster.map((g) => g.guestId),
+    ...signedUpGuestIds,
+  ]);
+
+  const displayRoster = Array.from(mergedRosterIds).map((id) => {
+    const fromApi = roster.find((g) => g.guestId === id);
+    if (fromApi) return fromApi;
+    const guest = GUESTS.find((g) => g.id === id);
+    return {
+      guestId: id,
+      firstName: guest?.firstName ?? id,
+      displayNameEn: guest ? getDisplayName(guest, "en") : id,
+      displayNameJa: guest ? getDisplayName(guest, "ja") : id,
+    };
+  });
 
   const filteredGuests = GUESTS.filter((g) =>
     g.firstName.toLowerCase().includes(search.toLowerCase())
   );
 
-  const isSignedUp = (guestId: string) => signedUpGuestIds.includes(guestId);
+  const isSignedUp = (guestId: string) =>
+    signedUpGuestIds.includes(guestId) || roster.some((g) => g.guestId === guestId);
 
   const handleToggle = async (guestId: string) => {
     setPending(guestId);
-    if (isSignedUp(guestId)) {
+    if (signedUpGuestIds.includes(guestId)) {
       onRemove(guestId);
+      setRoster((prev) => prev.filter((g) => g.guestId !== guestId));
     } else {
       onSignup(guestId);
+      const guest = GUESTS.find((g) => g.id === guestId);
+      if (guest) {
+        setRoster((prev) => [
+          ...prev,
+          {
+            guestId: guest.id,
+            firstName: guest.firstName,
+            displayNameEn: getDisplayName(guest, "en"),
+            displayNameJa: getDisplayName(guest, "ja"),
+          },
+        ]);
+      }
     }
     setPending(null);
   };
@@ -56,6 +104,23 @@ export default function SignupModal({
           </button>
         </div>
 
+        {displayRoster.length > 0 && (
+          <div className={styles.rosterSection} aria-label="Who's going">
+            <p className={styles.rosterHeading}>
+              {locale === "en"
+                ? `Going (${displayRoster.length})`
+                : `参加者 (${displayRoster.length})`}
+            </p>
+            <div className={styles.rosterChips}>
+              {displayRoster.map((g) => (
+                <span key={g.guestId} className={styles.rosterChip}>
+                  {locale === "ja" ? g.displayNameJa : g.displayNameEn}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className={styles.searchWrap}>
           <input
             type="text"
@@ -69,8 +134,8 @@ export default function SignupModal({
 
         <p className={styles.hint}>
           {locale === "en"
-            ? "Please only select your own name"
-            : "ご自身のお名前のみ選択してください"}
+            ? "Tap your name to sign up or remove yourself"
+            : "お名前をタップして参加・取消できます"}
         </p>
 
         <ul className={styles.guestList}>

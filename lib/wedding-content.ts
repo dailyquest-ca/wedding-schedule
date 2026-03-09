@@ -38,6 +38,10 @@ export interface WeddingContent {
     url: string;
     label: string;
   };
+  photos: {
+    url: string;
+    label: string;
+  };
   toggleLabel: string;
 }
 
@@ -272,8 +276,12 @@ const EN: WeddingContent = {
     { label: "Personal extras", amount: "On your own" },
   ],
   whatsapp: {
-    url: "https://chat.whatsapp.com/example-group-link",
-    label: "Join our WhatsApp group",
+    url: "https://chat.whatsapp.com/LLtkoDPyh0EHu7sbK2NxN8",
+    label: "WhatsApp Group",
+  },
+  photos: {
+    url: "https://photos.app.goo.gl/AnAaJKGTeqWx7jtY9",
+    label: "Shared Photos",
   },
 };
 
@@ -509,8 +517,12 @@ const JA: WeddingContent = {
     { label: "個人の追加費用", amount: "各自負担" },
   ],
   whatsapp: {
-    url: "https://chat.whatsapp.com/example-group-link",
-    label: "WhatsAppグループに参加",
+    url: "https://chat.whatsapp.com/LLtkoDPyh0EHu7sbK2NxN8",
+    label: "WhatsAppグループ",
+  },
+  photos: {
+    url: "https://photos.app.goo.gl/AnAaJKGTeqWx7jtY9",
+    label: "共有写真",
   },
 };
 
