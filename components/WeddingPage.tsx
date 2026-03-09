@@ -33,6 +33,13 @@ export default function WeddingPage() {
         fetch("/api/events"),
         fetch("/api/public/content"),
       ]);
+
+      // #region agent log
+      const _p = {sessionId:'e76c53',runId:'pre-fix',hypothesisId:'H4',location:'components/WeddingPage.tsx:~36',message:'guest fetch statuses',data:{eventsOk:evRes.ok,eventsStatus:evRes.status,contentOk:contentRes.ok,contentStatus:contentRes.status},timestamp:Date.now()};
+      fetch('http://127.0.0.1:7896/ingest/f9e706b0-cbe6-49af-9ca1-ef5c28b90de6',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'e76c53'},body:JSON.stringify(_p)}).catch(()=>{});
+      import('fs/promises').then((fs)=>fs.appendFile('debug-e76c53.log', JSON.stringify(_p)+'\n')).catch(()=>{});
+      // #endregion
+
       if (evRes.ok) {
         setEvents(await evRes.json());
       }
@@ -149,25 +156,25 @@ export default function WeddingPage() {
                       </span>
                       <span className={styles.slotTime}>{slot.time}</span>
                       <span className={styles.slotContent}>
-                        <span className={styles.slotLabel}>
-                          {slot.label}
+                        <span className={styles.slotLabelRow}>
+                          <span className={styles.slotLabel}>{slot.label}</span>
                           {isSignuppable && count !== undefined && (
                             <span className={styles.countPill} aria-label={`${count} going`}>
                               {count} {locale === "en" ? "going" : "人参加"}
                             </span>
                           )}
+                          {isSignuppable && (
+                            <button
+                              className={styles.signupBtn}
+                              onClick={() => setModalEventId(slot.id!)}
+                              aria-label={`${locale === "en" ? "Sign up for" : "参加登録："} ${slot.label}`}
+                            >
+                              {locale === "en" ? "Sign up" : "参加する"}
+                            </button>
+                          )}
                         </span>
                         {slot.description && (
                           <span className={styles.slotDesc}>{slot.description}</span>
-                        )}
-                        {isSignuppable && (
-                          <button
-                            className={styles.signupBtn}
-                            onClick={() => setModalEventId(slot.id!)}
-                            aria-label={`${locale === "en" ? "Sign up for" : "参加登録："} ${slot.label}`}
-                          >
-                            {locale === "en" ? "Sign up" : "参加する"}
-                          </button>
                         )}
                       </span>
                     </li>

@@ -5,9 +5,17 @@ import { getDbEvents, getDbNotes, upsertEvent, deleteEvent, replaceNotes } from 
 export const dynamic = "force-dynamic";
 
 function checkAdmin(request: NextRequest): NextResponse | null {
-  const password = request.headers.get("x-admin-password");
-  const expected = process.env.ADMIN_PASSWORD;
-  if (!expected || password !== expected) {
+  const password = request.headers.get("x-admin-password") ?? "";
+  const expected = process.env.ADMIN_PASSWORD ?? "";
+  const ok = expected.length > 0 && password === expected;
+
+  // #region agent log
+  const _p1 = {sessionId:'e76c53',runId:'pre-fix',hypothesisId:'H3',location:'app/api/admin/events/route.ts:~7',message:'admin auth check',data:{expectedPresent:expected.length>0,expectedLen:expected.length,providedPresent:password.length>0,providedLen:password.length,ok},timestamp:Date.now()};
+  fetch('http://127.0.0.1:7896/ingest/f9e706b0-cbe6-49af-9ca1-ef5c28b90de6',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'e76c53'},body:JSON.stringify(_p1)}).catch(()=>{});
+  import('fs/promises').then((fs)=>fs.appendFile('debug-e76c53.log', JSON.stringify(_p1)+'\n')).catch(()=>{});
+  // #endregion
+
+  if (!ok) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   return null;
@@ -25,6 +33,11 @@ export async function GET(request: NextRequest) {
     ]);
     return NextResponse.json({ rosters, events, notes });
   } catch (error) {
+    // #region agent log
+    const _p2 = {sessionId:'e76c53',runId:'pre-fix',hypothesisId:'H4',location:'app/api/admin/events/route.ts:~27',message:'GET /api/admin/events error',data:{errorName:(error as any)?.name ?? null,errorMessage:(error as any)?.message ?? null},timestamp:Date.now()};
+    fetch('http://127.0.0.1:7896/ingest/f9e706b0-cbe6-49af-9ca1-ef5c28b90de6',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'e76c53'},body:JSON.stringify(_p2)}).catch(()=>{});
+    import('fs/promises').then((fs)=>fs.appendFile('debug-e76c53.log', JSON.stringify(_p2)+'\n')).catch(()=>{});
+    // #endregion
     console.error("GET /api/admin/events error:", error);
     return NextResponse.json(
       { error: "Failed to load admin data" },

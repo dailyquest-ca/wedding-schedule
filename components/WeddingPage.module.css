@@ -182,6 +182,13 @@
   gap: 2px;
 }
 
+.slotLabelRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
 .slotLabel {
   font-weight: 600;
   font-size: 0.95rem;
@@ -207,14 +214,13 @@
 .signupBtn {
   display: inline-flex;
   align-items: center;
-  margin-top: var(--space-xs);
-  padding: var(--space-xs) var(--space-md);
-  font-size: 0.8rem;
+  padding: 1px var(--space-sm);
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-accent);
   background: transparent;
   border: 1.5px solid var(--color-accent);
-  border-radius: var(--radius-sm);
+  border-radius: 999px;
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
 }
