@@ -32,8 +32,12 @@ export async function addSignup(eventId: string, guestId: string): Promise<void>
   const sql = getDb();
   await sql`
     INSERT INTO event_signups (event_id, guest_id)
-    VALUES (${eventId}, ${guestId})
-    ON CONFLICT (event_id, guest_id) DO NOTHING
+    SELECT ${eventId}, ${guestId}
+    WHERE NOT EXISTS (
+      SELECT 1
+      FROM event_signups
+      WHERE event_id = ${eventId} AND guest_id = ${guestId}
+    )
   `;
 }
 
