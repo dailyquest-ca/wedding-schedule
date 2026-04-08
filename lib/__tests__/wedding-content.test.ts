@@ -144,34 +144,32 @@ describe("getContent", () => {
   });
 
   describe("Apr 9 – Wedding Day", () => {
-    it("EN includes all-day wedding prep and Sky Terrace timeline", () => {
+    it("EN includes prep window, ceremony seating note, and full Sky Venue timeline", () => {
       const en = getContent("en");
       const apr9 = en.schedule.find((d) => d.dateLabel.includes("Apr 9"));
       const serialized = JSON.stringify(apr9).toLowerCase();
-      expect(serialized).toContain("wedding preparation");
-      expect(serialized).toContain("sky terrace");
-      expect(apr9!.slots.find((s) => s.time.includes("5:00"))).toBeDefined();
-      expect(apr9!.slots.find((s) => s.time.includes("5:30"))).toBeDefined();
-      expect(apr9!.slots.find((s) => s.time.includes("7:00"))).toBeDefined();
-      expect(apr9!.slots.find((s) => s.time.includes("9:00"))).toBeDefined();
+      expect(serialized).toContain("sky venue");
+      expect(serialized).toContain("seated by 4:45 pm");
+      expect(apr9!.slots.find((s) => s.time.includes("12:00"))).toBeDefined();
+      expect(apr9!.slots.find((s) => s.time.includes("5:00–5:30"))).toBeDefined();
+      expect(apr9!.slots.find((s) => s.time.includes("5:30–7:00"))).toBeDefined();
+      expect(apr9!.slots.find((s) => s.time.includes("7:00–8:00"))).toBeDefined();
+      expect(apr9!.slots.find((s) => s.time.includes("8:00–8:30"))).toBeDefined();
+      expect(apr9!.slots.find((s) => s.time.includes("8:30–11:00"))).toBeDefined();
     });
 
-    it("EN includes optional after-party", () => {
-      const en = getContent("en");
-      const apr9 = en.schedule.find((d) => d.dateLabel.includes("Apr 9"));
-      const serialized = JSON.stringify(apr9).toLowerCase();
-      expect(serialized).toContain("after-party");
-    });
-
-    it("JA includes Sky Terrace and key ceremony times", () => {
+    it("JA includes seating instruction and translated wedding timeline", () => {
       const ja = getContent("ja");
       const apr9 = ja.schedule.find((d) => d.dateLabel.includes("4月9日"));
       const serialized = JSON.stringify(apr9);
-      expect(serialized).toContain("Sky Terrace");
-      expect(apr9!.slots.find((s) => s.time.includes("17:00"))).toBeDefined();
-      expect(apr9!.slots.find((s) => s.time.includes("17:30"))).toBeDefined();
-      expect(apr9!.slots.find((s) => s.time.includes("19:00"))).toBeDefined();
-      expect(apr9!.slots.find((s) => s.time.includes("21:00"))).toBeDefined();
+      expect(serialized).toContain("Sky Venue");
+      expect(serialized).toContain("16:45");
+      expect(apr9!.slots.find((s) => s.time.includes("12:00〜17:00"))).toBeDefined();
+      expect(apr9!.slots.find((s) => s.time.includes("17:00〜17:30"))).toBeDefined();
+      expect(apr9!.slots.find((s) => s.time.includes("17:30〜19:00"))).toBeDefined();
+      expect(apr9!.slots.find((s) => s.time.includes("19:00〜20:00"))).toBeDefined();
+      expect(apr9!.slots.find((s) => s.time.includes("20:00〜20:30"))).toBeDefined();
+      expect(apr9!.slots.find((s) => s.time.includes("20:30〜23:00"))).toBeDefined();
     });
   });
 
@@ -277,9 +275,9 @@ describe("getContent", () => {
   });
 
   describe("signuppable slots", () => {
-    it("returns 9 signuppable event IDs", () => {
+    it("returns 7 signuppable event IDs", () => {
       const ids = getSignuppableSlotIds();
-      expect(ids).toHaveLength(9);
+      expect(ids).toHaveLength(7);
     });
 
     it("includes dinner and excursion events", () => {
@@ -289,9 +287,7 @@ describe("getContent", () => {
       expect(ids).toContain("apr8-chichen-itza");
       expect(ids).toContain("apr8-dinner");
       expect(ids).toContain("apr10-catamaran");
-      expect(ids).toContain("apr11-golf");
       expect(ids).toContain("apr11-coco-bongo");
-      expect(ids).toContain("apr12-outing");
       expect(ids).toContain("apr12-dinner");
     });
 

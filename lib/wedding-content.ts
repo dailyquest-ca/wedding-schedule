@@ -125,49 +125,41 @@ const EN: WeddingContent = {
       dayLabel: "Thursday — Wedding Day",
       slots: [
         {
-          id: "apr11-golf",
-          time: "Morning",
-          label: "Scramble golf tournament",
-          description: "Friendly scramble format. All skill levels welcome.",
-          category: "excursion",
-          signupEnabled: true,
-        },
-        {
-          time: "All day",
-          label: "Wedding preparation",
-          description: "Getting ready, photos with friends and family, and final prep.",
+          time: "12:00–5:00 PM",
+          label: "Wedding party prep (Bride/Groom/Wedding Party)",
+          description:
+            "Bride, Groom, and Wedding Party are getting ready and taking photos/videos. They will receive a separate detailed schedule.",
           category: "busy",
         },
         {
-          time: "5:00 PM",
-          label: "Ceremony @ Sky Terrace",
-          description: "Please arrive a few minutes early.",
+          time: "5:00–5:30 PM",
+          label: "Ceremony @ Sky Venue",
+          description: "Guests, please be seated by 4:45 PM.",
           category: "wedding",
         },
         {
-          time: "5:30 PM",
-          label: "Photos & Cocktail Hour @ Sky Terrace",
+          time: "5:30–7:00 PM",
+          label: "Cocktail Hour @ Sky Venue",
           description:
-            "Wedding party and family photos; cocktails for everyone else.",
+            "Finger food and open bar. Please stay nearby since we may pull additional guests into photos from time to time.",
           category: "wedding",
         },
         {
-          time: "7:00 PM",
-          label: "Dinner & Speeches @ Sky Terrace",
-          description: "Private dinner for everyone, with speeches and toasts.",
+          time: "7:00–8:00 PM",
+          label: "Dinner",
           category: "wedding",
         },
         {
-          time: "9:00–11:00 PM",
-          label: "Open Bar & Dance Party @ Sky Terrace",
-          description: "Dancing encouraged — bring your best moves (or just your enthusiasm).",
+          time: "8:00–8:30 PM (ish)",
+          label: "Video & Speeches",
+          description:
+            "Anyone who wants to congratulate us, share a funny story, or offer words of wisdom is welcome. It is a small, non-intimidating crew, so no need to be shy. :)",
           category: "wedding",
         },
         {
-          time: "11:00 PM+",
-          label: "Optional after-party",
-          description: "Ocean hangout or room party for anyone still going.",
-          category: "free",
+          time: "8:30–11:00 PM",
+          label: "Dancing and merry-making",
+          category: "wedding",
         },
       ],
     },
@@ -229,15 +221,6 @@ const EN: WeddingContent = {
       dateLabel: "Sun, Apr 12",
       dayLabel: "Sunday — Boat day & farewell",
       slots: [
-        {
-          id: "apr12-outing",
-          time: "Daytime",
-          label: "Optional group outing",
-          description:
-            "Jet skis, boat rental, scuba diving, or adventure park — details in the group.",
-          category: "excursion",
-          signupEnabled: true,
-        },
         {
           id: "apr12-dinner",
           time: "Evening",
@@ -371,49 +354,41 @@ const JA: WeddingContent = {
       dayLabel: "木曜日 — 結婚式当日",
       slots: [
         {
-          id: "apr11-golf",
-          time: "朝",
-          label: "スクランブルゴルフトーナメント",
-          description: "スクランブル形式。経験問わず参加歓迎。",
-          category: "excursion",
-          signupEnabled: true,
-        },
-        {
-          time: "終日",
-          label: "ウェディング準備",
-          description: "支度、友人・家族との写真、最終準備。",
+          time: "12:00〜17:00",
+          label: "新郎新婦・ウェディングパーティー準備",
+          description:
+            "新郎新婦とウェディングパーティーは支度と写真・動画撮影で忙しい時間です。詳細スケジュールは別途共有します。",
           category: "busy",
         },
         {
-          time: "17:00",
-          label: "挙式 @ Sky Terrace",
-          description: "少し早めにお越しください。",
+          time: "17:00〜17:30",
+          label: "挙式 @ Sky Venue",
+          description: "ゲストの皆さまは16:45までにご着席ください。",
           category: "wedding",
         },
         {
-          time: "17:30",
-          label: "写真撮影＆カクテルアワー @ Sky Terrace",
+          time: "17:30〜19:00",
+          label: "カクテルアワー @ Sky Venue",
           description:
-            "新郎新婦と家族の写真。他のゲストはカクテルをお楽しみください。",
+            "フィンガーフードとオープンバーがあります。途中で写真撮影にご協力いただくことがあるので、できるだけこのエリアでお過ごしください。",
           category: "wedding",
         },
         {
-          time: "19:00",
-          label: "ディナー＆スピーチ @ Sky Terrace",
-          description: "プライベートディナー、スピーチと乾杯。",
+          time: "19:00〜20:00",
+          label: "ディナー",
           category: "wedding",
         },
         {
-          time: "21:00–23:00",
-          label: "オープンバー＆ダンスパーティー @ Sky Terrace",
-          description: "ダンス大歓迎 — 得意な人も、気合いだけの人も。",
+          time: "20:00〜20:30頃",
+          label: "ムービー＆スピーチ",
+          description:
+            "お祝いの言葉、面白いエピソード、アドバイスなど、話したい方はぜひどうぞ。少人数でアットホームな雰囲気なので気軽にご参加ください。 :)",
           category: "wedding",
         },
         {
-          time: "23:00以降",
-          label: "オプションのアフターパーティー",
-          description: "海辺やお部屋で続ける人も。",
-          category: "free",
+          time: "20:30〜23:00",
+          label: "ダンスタイム＆お祝い",
+          category: "wedding",
         },
       ],
     },
@@ -476,15 +451,6 @@ const JA: WeddingContent = {
       dateLabel: "4月12日（日）",
       dayLabel: "日曜日 — ボートデー＆お別れ",
       slots: [
-        {
-          id: "apr12-outing",
-          time: "日中",
-          label: "オプションのグループアクティビティ",
-          description:
-            "ジェットスキー、ボートレンタル、スキューバ、アドベンチャーパーク — グループでご確認ください。",
-          category: "excursion",
-          signupEnabled: true,
-        },
         {
           id: "apr12-dinner",
           time: "夜",
