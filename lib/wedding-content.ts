@@ -175,7 +175,7 @@ const EN: WeddingContent = {
         },
         {
           id: "apr10-catamaran",
-          time: "Daytime",
+          time: "11:00 AM–7:00 PM (ish)",
           label: "Catamaran to Isla Mujeres (snorkeling + island explore)",
           description:
             "Boat excursion (up to 30 people): catamaran, snorkeling, and time on Isla Mujeres. RSVP ASAP by around 4:00 PM. Cost: $145 USD per person.",
@@ -404,7 +404,7 @@ const JA: WeddingContent = {
         },
         {
           id: "apr10-catamaran",
-          time: "日中",
+          time: "11:00〜19:00頃",
           label: "カタマランでイスラ・ムヘーレスへ（シュノーケリング＆島散策）",
           description:
             "最大30名のボートツアー。カタマラン、シュノーケリング、イスラ・ムヘーレス散策。参加可否はなるべく早く、目安16:00までにお知らせください。料金：1名あたり145米ドル。",
