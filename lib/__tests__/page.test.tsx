@@ -115,7 +115,7 @@ describe("WeddingPage", () => {
   it("renders Sign up buttons for signuppable slots", async () => {
     await renderPage();
     const signupButtons = screen.getAllByRole("button", { name: /sign up for/i });
-    expect(signupButtons.length).toBe(8);
+    expect(signupButtons.length).toBe(9);
   });
 
   it("opens the signup modal when a Sign up button is clicked", async () => {

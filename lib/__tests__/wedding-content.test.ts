@@ -224,10 +224,62 @@ describe("getContent", () => {
     });
   });
 
+  describe("departure and excursion updates", () => {
+    it("EN sets Victor departure to 5:15 PM on Apr 10", () => {
+      const en = getContent("en");
+      const apr10 = en.schedule.find((d) => d.dateLabel.includes("Apr 10"));
+      const victorSlot = apr10?.slots.find((s) => s.label === "Victor departs");
+      expect(victorSlot?.time).toBe("5:15 PM");
+    });
+
+    it("EN has Saturday 4:00 PM departure for Jeff, Michelle, Ami, and Nameet", () => {
+      const en = getContent("en");
+      const apr11 = en.schedule.find((d) => d.dateLabel.includes("Apr 11"));
+      const slot = apr11?.slots.find((s) =>
+        (s.description ?? "").includes("Jeff, Michelle, Ami, and Nameet")
+      );
+      expect(slot).toBeDefined();
+      expect(slot?.time).toBe("4:00 PM");
+    });
+
+    it("EN includes Friday catamaran excursion details and signup", () => {
+      const en = getContent("en");
+      const apr10 = en.schedule.find((d) => d.dateLabel.includes("Apr 10"));
+      const catamaran = apr10?.slots.find((s) => s.id === "apr10-catamaran");
+      expect(catamaran).toBeDefined();
+      expect(catamaran?.signupEnabled).toBe(true);
+      expect(catamaran?.category).toBe("excursion");
+      expect(`${catamaran?.label} ${catamaran?.description}`).toContain("Isla Mujeres");
+      expect(`${catamaran?.label} ${catamaran?.description}`).toContain("$145");
+      expect(`${catamaran?.label} ${catamaran?.description}`).toContain("4:00 PM");
+    });
+
+    it("JA includes translated Friday catamaran excursion and Saturday 16:00 departure", () => {
+      const ja = getContent("ja");
+      const apr10 = ja.schedule.find((d) => d.dateLabel.includes("4月10日"));
+      const catamaran = apr10?.slots.find((s) => s.id === "apr10-catamaran");
+      expect(catamaran).toBeDefined();
+      expect(catamaran?.signupEnabled).toBe(true);
+      expect(`${catamaran?.label} ${catamaran?.description}`).toContain("イスラ・ムヘーレス");
+      expect(`${catamaran?.label} ${catamaran?.description}`).toContain("145");
+      const apr11 = ja.schedule.find((d) => d.dateLabel.includes("4月11日"));
+      const dep = apr11?.slots.find((s) => {
+        const description = s.description ?? "";
+        return (
+          description.includes("Jeff様") &&
+          description.includes("Michelle様") &&
+          description.includes("Ami様") &&
+          description.includes("Nameet様")
+        );
+      });
+      expect(dep?.time).toBe("16:00");
+    });
+  });
+
   describe("signuppable slots", () => {
-    it("returns 8 signuppable event IDs", () => {
+    it("returns 9 signuppable event IDs", () => {
       const ids = getSignuppableSlotIds();
-      expect(ids).toHaveLength(8);
+      expect(ids).toHaveLength(9);
     });
 
     it("includes dinner and excursion events", () => {
@@ -236,6 +288,7 @@ describe("getContent", () => {
       expect(ids).toContain("apr7-dinner");
       expect(ids).toContain("apr8-chichen-itza");
       expect(ids).toContain("apr8-dinner");
+      expect(ids).toContain("apr10-catamaran");
       expect(ids).toContain("apr11-golf");
       expect(ids).toContain("apr11-coco-bongo");
       expect(ids).toContain("apr12-outing");

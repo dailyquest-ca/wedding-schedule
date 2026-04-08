@@ -116,6 +116,7 @@ describe("mergeSchedule", () => {
     expect(ids).toEqual([
       "Rest and relax",
       "custom-breakfast",
+      "apr10-catamaran",
       "Victor departs",
       "custom-sunset",
     ]);

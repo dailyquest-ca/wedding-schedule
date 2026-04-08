@@ -182,7 +182,16 @@ const EN: WeddingContent = {
           category: "free",
         },
         {
-          time: "Afternoon",
+          id: "apr10-catamaran",
+          time: "Daytime",
+          label: "Catamaran to Isla Mujeres (snorkeling + island explore)",
+          description:
+            "Boat excursion (up to 30 people): catamaran, snorkeling, and time on Isla Mujeres. RSVP ASAP by around 4:00 PM. Cost: $145 USD per person.",
+          category: "excursion",
+          signupEnabled: true,
+        },
+        {
+          time: "5:15 PM",
           label: "Victor departs",
           description: "Victor heads home today.",
           category: "travel",
@@ -197,7 +206,13 @@ const EN: WeddingContent = {
           time: "2:58 PM onward",
           label: "Departures",
           description:
-            "Takaaki, Yoko, Kento, Haruna, Lance, Melody, Michelle, and Jeff depart today.",
+            "Takaaki, Yoko, Kento, Haruna, and Lance depart today.",
+          category: "travel",
+        },
+        {
+          time: "4:00 PM",
+          label: "Departures",
+          description: "Melody, Jeff, Michelle, Ami, and Nameet depart today.",
           category: "travel",
         },
         {
@@ -222,11 +237,6 @@ const EN: WeddingContent = {
             "Jet skis, boat rental, scuba diving, or adventure park — details in the group.",
           category: "excursion",
           signupEnabled: true,
-        },
-        {
-          time: "5:05 PM",
-          label: "Ami and Nameet depart",
-          category: "travel",
         },
         {
           id: "apr12-dinner",
@@ -418,7 +428,16 @@ const JA: WeddingContent = {
           category: "free",
         },
         {
-          time: "午後",
+          id: "apr10-catamaran",
+          time: "日中",
+          label: "カタマランでイスラ・ムヘーレスへ（シュノーケリング＆島散策）",
+          description:
+            "最大30名のボートツアー。カタマラン、シュノーケリング、イスラ・ムヘーレス散策。参加可否はなるべく早く、目安16:00までにお知らせください。料金：1名あたり145米ドル。",
+          category: "excursion",
+          signupEnabled: true,
+        },
+        {
+          time: "17:15",
           label: "Victor様 出発",
           description: "Victor様 は本日帰国します。",
           category: "travel",
@@ -433,7 +452,14 @@ const JA: WeddingContent = {
           time: "14:58以降",
           label: "出発",
           description:
-            "Takaaki、Yoko、Kento様、Haruna様、Lance様、Melody様、Michelle様、Jeff様 が本日出発します。",
+            "Takaaki、Yoko、Kento様、Haruna様、Lance様 が本日出発します。",
+          category: "travel",
+        },
+        {
+          time: "16:00",
+          label: "出発",
+          description:
+            "Melody様、Jeff様、Michelle様、Ami様、Nameet様 が本日出発します。",
           category: "travel",
         },
         {
@@ -458,11 +484,6 @@ const JA: WeddingContent = {
             "ジェットスキー、ボートレンタル、スキューバ、アドベンチャーパーク — グループでご確認ください。",
           category: "excursion",
           signupEnabled: true,
-        },
-        {
-          time: "17:05",
-          label: "Ami様 と Nameet様 出発",
-          category: "travel",
         },
         {
           id: "apr12-dinner",
